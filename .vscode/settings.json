@@ -1,0 +1,22 @@
+{
+  "python.defaultInterpreterPath": "c:/Users/arnav/OneDrive/Desktop/Fraud_Detection/myenv/Scripts/python.exe",
+  "python.analysis.extraPaths": ["./myenv/Lib/site-packages"],
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "notebook.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.tabCompletion": "on",
+  "editor.inlineSuggest.enabled": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.indexing": true,
+  "python.analysis.completeFunctionParens": true,
+  "jupyter.enableExtendedPythonKernelCompletions": true,
+  "liveServer.settings.port": 5501
+}

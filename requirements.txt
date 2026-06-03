@@ -1,0 +1,10 @@
+pip install numpy
+pip install panda
+pip install matplotlib.pyplot
+pip install seaborn
+pip install sklearn
+pip install joblib
+pip install shap
+pip install fastapi
+pip install uvicorn 
+pip install sqlalchemy

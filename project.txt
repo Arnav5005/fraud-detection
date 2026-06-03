@@ -1,0 +1,10 @@
+"I built a real-time fraud detection system that mirrors what banks like Visa run in production. The core challenge was a 578:1 class imbalance — only 0.17% of transactions were fraud. I handled this with SMOTE after train/test splitting to avoid data leakage, used XGBoost with scale_pos_weight tuned to the imbalance ratio, and evaluated using F1 and ROC-AUC rather than accuracy. The model is served through a FastAPI endpoint that scores transactions in under 100ms, logs every prediction to a database, and uses SHAP to explain which features drove each decision. The frontend is a React dashboard showing live fraud scores and trend charts."
+
+SHAP explainability
+
+I used SHAP TreeExplainer on my XGBoost model to explain individual predictions. SHAP computes each feature's marginal contribution using Shapley values from cooperative game theory — it's mathematically guaranteed to fairly attribute the prediction across all features while accounting for feature interactions. This meant my fraud analyst dashboard could show exactly which transaction attributes triggered the fraud flag rather than just a probability score, which is the difference between a black box and a production-grade explainable AI system.
+
+SQLite
+
+I used SQLite for rapid prototyping and simplicity, since my workload is low-concurrency.
+The system is designed to be database-agnostic using SQLAlchemy, so I can migrate to PostgreSQL when scaling is required.
