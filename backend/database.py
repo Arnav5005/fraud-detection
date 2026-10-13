@@ -38,3 +38,19 @@ def get_db():
     finally:
         db.close()
 
+def save_transaction(db, time_raw, amount_raw, hour, log_amount, fraud_probability, verdict, top_reasons):
+    transaction = Transaction(
+        time_raw = time_raw,
+        amount_raw = amount_raw,
+        hour = hour,
+        log_amount = log_amount,
+        fraud_probability = fraud_probability,
+        verdict = verdict,
+        top_reasons = ', '.join(top_reasons),
+        timestamp = datetime.utcnow()
+    )
+
+    db.add(transaction)
+    db.commit()
+    db.refresh(transaction)
+    return transaction.id
