@@ -1,0 +1,6 @@
+{
+  "threshold": 0.89,
+  "description": "Validation-calibrated decision threshold maximizing F1 on imbalanced credit card fraud data.",
+  "calibrated_metric": "F1",
+  "calibrated_value": 0.8439
+}

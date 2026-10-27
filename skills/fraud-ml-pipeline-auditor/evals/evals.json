@@ -1,0 +1,43 @@
+{
+  "skill_name": "fraud-ml-pipeline-auditor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Audit the credit card fraud dataset (`data/creditcard.csv`). Verify that the schema contains 31 columns (`Time`, `V1`..`V28`, `Amount`, `Class`), inspect nulls, infinities, duplicate rows, and calculate the exact fraud class distribution. Report whether `Class` should be treated as a feature during inference.",
+      "expected_output": "A structured audit report identifying row count, column count, zero missing values, duplicate row count, exact positive class count (~492, ~0.17%), and confirming `Class` must be excluded from inference features.",
+      "files": [],
+      "expectations": [
+        "The audit identifies that the dataset contains 31 columns.",
+        "The audit confirms the target variable is Class with binary values {0, 1}.",
+        "The audit reports class imbalance with fraud prevalence approximately 0.17%.",
+        "The audit explicitly warns that Class must never be used as an inference feature."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Audit our machine learning training script (`scripts/train.py`). Check if there is data leakage in how scalers or SMOTE are applied, check if the split is stratified, and audit how the classification decision threshold is selected. Evaluate trade-offs between precision, recall, and false positives.",
+      "expected_output": "An audit report evaluating stratification, verifying that preprocessing and SMOTE are fit solely on training data, verifying that the threshold is selected using validation data rather than the test set, and documenting precision-recall-cost trade-offs across candidate thresholds.",
+      "files": [],
+      "expectations": [
+        "The audit verifies that data is split with stratification before any resampling.",
+        "The audit checks that scalers and SMOTE are fitted strictly on the training partition.",
+        "The audit verifies that validation and test partitions maintain their natural class distribution.",
+        "The audit warns against selecting decision thresholds using the test set.",
+        "The audit evaluates candidate thresholds and documents the trade-off between recall and false positives."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Audit the FastAPI serving application and SHAP explainability module. Verify that inference uses the same transformations and feature ordering as training, verify that request validation rejects negative Time/Amount and rejects Class, verify probabilities are bounded in [0, 1], and verify SHAP explanations.",
+      "expected_output": "A serving consistency audit verifying feature order, preprocessing transformations (elapsed time scaling, log1p amount, standardization), non-negative Pydantic validations, absence of `Class` in API input schema, finite probabilities in [0, 1], and alignment of SHAP reasons with model features.",
+      "files": [],
+      "expectations": [
+        "The audit verifies that the API rejects or excludes the Class field.",
+        "The audit checks that Time and Amount have non-negative validation constraints.",
+        "The audit verifies feature ordering parity between training and inference.",
+        "The audit confirms prediction probabilities are finite and within [0.0, 1.0].",
+        "The audit verifies that SHAP explanations order feature attributions by magnitude."
+      ]
+    }
+  ]
+}
